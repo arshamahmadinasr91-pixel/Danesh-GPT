@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1456c0">
+<title>دانش چی پی تی | همراه هوشمند یادگیری</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --page: light-dark(#f3f7fd, #0b1424);
+  --surface: light-dark(#ffffff, #121f33);
+  --surface-soft: light-dark(#f6f9ff, #172941);
+  --text: light-dark(#14243d, #edf5ff);
+  --muted: light-dark(#64748b, #a8bad1);
+  --border: light-dark(#dce7f5, #293d58);
+  --blue: light-dark(#175cd3, #7eb2ff);
+  --blue-deep: light-dark(#1248a7, #9bc5ff);
+  --blue-soft: light-dark(#e8f1ff, #1b3557);
+  --shadow: 0 14px 38px #163c7010;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--text); font-family: Tahoma, Arial, sans-serif; line-height: 1.75; }
+button, input { font: inherit; }
+.app { min-height: 100vh; background: var(--page); }
+.wrap { width: min(1100px, 100%); margin: 0 auto; padding: 22px 18px 36px; }
+.topbar { display: flex; align-items: center; gap: 13px; margin-bottom: 25px; }
+.logo { width: 52px; height: 52px; flex: 0 0 52px; display: grid; place-items: center; border-radius: 17px; color: white; background: linear-gradient(145deg,#2879ed,#1249ad); box-shadow: 0 8px 20px #1c5fbd30; }
+.logo svg { width: 31px; height: 31px; }
+.brand { font-weight: 900; font-size: 22px; letter-spacing: -.4px; }
+.tagline { color: var(--muted); font-size: 12px; }
+.status { margin-right: auto; display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid var(--border); background: var(--surface); border-radius: 999px; font-size: 11px; color: var(--muted); white-space: nowrap; }
+.status i { width: 7px; height: 7px; border-radius: 50%; background: #e6a23c; }
+.hero { position: relative; overflow: hidden; padding: clamp(25px,5vw,48px); border-radius: 27px; color: white; background: linear-gradient(115deg,#103b83 0%,#1764ce 62%,#378de9 100%); box-shadow: 0 18px 44px #1858aa20; }
+.hero:before, .hero:after { content: ""; position: absolute; border: 1px solid #ffffff20; border-radius: 50%; pointer-events: none; }
+.hero:before { width: 270px; height: 270px; left: -65px; top: -120px; }
+.hero:after { width: 190px; height: 190px; left: -22px; top: -80px; }
+.hero-content { position: relative; z-index: 1; max-width: 720px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; padding: 5px 10px; border: 1px solid #ffffff55; background: #ffffff12; border-radius: 999px; }
+.hero h1 { font-size: clamp(27px,5vw,42px); line-height: 1.4; margin: 14px 0 9px; }
+.hero p { max-width: 650px; margin: 0; color: #e4efff; font-size: 15px; }
+.grade-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.grade-pills span { border-radius: 10px; background: #ffffff18; border: 1px solid #ffffff3a; padding: 5px 12px; font-size: 12px; }
+.layout { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 18px; margin-top: 20px; align-items: start; }
+.panel { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 21px; padding: 19px; box-shadow: var(--shadow); }
+.panel-heading { display: flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 800; margin: 0 0 14px; }
+.heading-icon { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--blue-soft); color: var(--blue); font-size: 18px; }
+.subjects { display: grid; gap: 8px; }
+.subject { display: flex; align-items: center; gap: 10px; text-align: right; width: 100%; padding: 10px 11px; border: 1px solid transparent; border-radius: 12px; background: transparent; color: var(--text); cursor: pointer; transition: background .15s,border-color .15s; }
+.subject .s-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: var(--surface-soft); font-size: 16px; }
+.subject:hover, .subject.active { background: var(--blue-soft); border-color: light-dark(#b9d2fb,#315d94); }
+.subject.active { color: var(--blue-deep); font-weight: 700; }
+.side-note { margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+.grade-select { display: flex; gap: 6px; margin-top: 10px; }
+.grade-select button { flex: 1; border: 1px solid var(--border); background: var(--surface-soft); color: var(--text); border-radius: 9px; padding: 7px 3px; cursor: pointer; font-size: 12px; }
+.grade-select button.active { background: var(--blue-soft); border-color: var(--blue); color: var(--blue-deep); font-weight: 700; }
+.chat { display: flex; flex-direction: column; min-height: 510px; }
+.chat-head { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 17px; }
+.bot-avatar { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 13px; background: var(--blue-soft); color: var(--blue); font-size: 21px; }
+.chat-title { font-weight: 800; }
+.chat-subtitle { color: var(--muted); font-size: 11px; }
+.clear { margin-right: auto; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; cursor: pointer; font-size: 11px; }
+.messages { display: flex; flex-direction: column; gap: 13px; flex: 1; min-height: 300px; }
+.msg { max-width: 94%; padding: 12px 15px; border-radius: 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.bot { align-self: flex-start; background: var(--surface-soft); border: 1px solid var(--border); border-top-right-radius: 5px; }
+.msg.user { align-self: flex-end; background: var(--blue-soft); border: 1px solid light-dark(#c6dbff,#315783); border-top-left-radius: 5px; }
+.sender { color: var(--muted); font-size: 11px; margin-bottom: 4px; }
+.quick-title { color: var(--muted); font-size: 12px; margin: 17px 0 8px; }
+.quick-prompts { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
+.quick-prompts button { color: var(--blue-deep); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px; font-size: 11px; cursor: pointer; }
+.compose { display: flex; gap: 9px; padding-top: 12px; border-top: 1px solid var(--border); }
+.compose input { flex: 1; min-width: 0; padding: 12px 14px; color: var(--text); background: var(--page); border: 1px solid var(--border); border-radius: 13px; outline: none; }
+.compose input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px light-dark(#175cd31a,#7eb2ff22); }
+.send { border: 0; border-radius: 13px; padding: 10px 17px; background: var(--blue); color: white; cursor: pointer; font-weight: 700; white-space: nowrap; }
+.notice { margin-top: 14px; display: flex; gap: 8px; align-items: flex-start; border-radius: 12px; padding: 10px 12px; background: var(--surface-soft); color: var(--muted); font-size: 11px; }
+.footer { text-align: center; color: var(--muted); font-size: 11px; padding-top: 22px; }
+@media (max-width: 760px) { .wrap { padding: 15px 12px 28px; } .layout { grid-template-columns: 1fr; } .hero { border-radius: 22px; } .subjects { grid-template-columns: repeat(2,minmax(0,1fr)); } .subject { padding: 8px; font-size: 12px; } .chat { min-height: 470px; } .status { font-size: 10px; padding: 5px 8px; } .brand { font-size: 19px; } }
+@media (max-width: 390px) { .status { display: none; } .hero p { font-size: 13px; } .panel { padding: 14px; } .send { padding: 9px 11px; } }
+</style>
+</head>
+<body>
+<div class="app">
+<main class="wrap">
+<header class="topbar">
+  <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3.5-1.5 6.5-.7 9 1.5v13c-2.5-2.2-5.5-3-9-1.5z"/><path d="M21 5.5c-3.5-1.5-6.5-.7-9 1.5v13c2.5-2.2 5.5-3 9-1.5z"/><path d="M7 9h2M7 12h2M15 9h2M15 12h2"/></svg></div>
+  <div><div class="brand">دانش چی پی تی</div><div class="tagline">همراه هوشمند یادگیری · متوسطه اول</div></div>
+  <div class="status"><i></i> نسخهٔ نمایشی</div>
+</header>
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">✦ یادگیری باهوش‌تر، قدم‌به‌قدم</span>
+    <h1>هر سؤالی داری،<br>از همین‌جا شروع کن.</h1>
+    <p>دانش چی پی تی کمک می‌کند درس‌ها را ساده‌تر بفهمی، مثال حل کنی و برای امتحان آماده شوی؛ نه فقط جواب را حفظ کنی.</p>
+    <div class="grade-pills"><span>پایهٔ هفتم</span><span>پایهٔ هشتم</span><span>پایهٔ نهم</span></div>
+  </div>
+</section>
+<section class="layout">
+  <aside class="panel">
+    <h2 class="panel-heading"><span class="heading-icon">▤</span> انتخاب درس</h2>
+    <div class="subjects">
+      <button class="subject active" data-sub="عمومی"><span class="s-icon">💡</span> پرسش عمومی</button>
+      <button class="subject" data-sub="ریاضی"><span class="s-icon">📐</span> ریاضی</button>
+      <button class="subject" data-sub="علوم"><span class="s-icon">🔬</span> علوم تجربی</button>
+      <button class="subject" data-sub="فارسی"><span class="s-icon">📖</span> فارسی</button>
+      <button class="subject" data-sub="انگلیسی"><span class="s-icon">🔤</span> زبان انگلیسی</button>
+      <button class="subject" data-sub="مطالعات اجتماعی"><span class="s-icon">🌍</span> مطالعات اجتماعی</button>
+      <button class="subject" data-sub="عربی"><span class="s-icon">📝</span> عربی</button>
+      <button class="subject" data-sub="پیام‌های آسمان"><span class="s-icon">⭐</span> پیام‌های آسمان</button>
+    </div>
+    <div class="side-note">پایهٔ تحصیلی‌ات را انتخاب کن تا پاسخ‌ها متناسب با سطح تو باشند.
+      <div class="grade-select" aria-label="انتخاب پایه"><button class="active" data-grade="هفتم">هفتم</button><button data-grade="هشتم">هشتم</button><button data-grade="نهم">نهم</button></div>
+    </div>
+  </aside>
+  <section class="panel chat">
+    <div class="chat-head"><div class="bot-avatar">✧</div><div><div class="chat-title">گفت‌وگو با دانش چی پی تی</div><div class="chat-subtitle" id="chatSubtitle">آمادهٔ کمک به تو هستم</div></div><button class="clear" id="clear">گفت‌وگوی تازه</button></div>
+    <div class="messages" id="messages" aria-live="polite"><div class="msg bot"><div class="sender">دانش چی پی تی</div>سلام! 👋 خوش اومدی.
+من می‌تونم در یادگیری درس‌های متوسطه اول کمکت کنم. درس و پایه‌ات رو انتخاب کن و سؤالت رو بنویس.
+
+مثلاً می‌تونی ازم بخوای یک مسئله رو مرحله‌به‌مرحله توضیح بدم.</div></div>
+    <div class="quick-title">برای شروع یکی از این نمونه‌ها را انتخاب کن:</div>
+    <div class="quick-prompts"><button type="button" data-q="معادلهٔ ۲x + ۳ = ۱۱ را مرحله‌به‌مرحله حل کن.">حل یک معادله</button><button type="button" data-q="چرا فصل‌های سال به وجود می‌آیند؟ ساده توضیح بده.">فصل‌های سال</button><button type="button" data-q="برای امتحان علوم یک برنامهٔ مرور کوتاه پیشنهاد بده.">برنامهٔ امتحان</button></div>
+    <form class="compose" id="form"><input id="question" autocomplete="off" placeholder="سؤالت را اینجا بنویس…" required aria-label="سؤال درسی"><button class="send" type="submit">ارسال ←</button></form>
+    <div class="notice"><span>ℹ️</span><span>این نسخه فعلاً نمونهٔ نمایشی است و هنوز به هوش مصنوعی واقعی وصل نشده؛ بعضی پاسخ‌ها نمونه و از پیش آماده‌اند.</span></div>
+  </section>
+</section>
+<footer class="footer">دانش چی پی تی · یاد بگیر، تمرین کن، پیشرفت کن</footer>
+</main>
+</div>
+<script>
+let subject = 'عمومی';
+let grade = 'هفتم';
+const messages = document.getElementById('messages');
+const input = document.getElementById('question');
+const subtitle = document.getElementById('chatSubtitle');
+function addMessage(text, who) {
+  const bubble = document.createElement('div');
+  bubble.className = 'msg ' + who;
+  const sender = document.createElement('div');
+  sender.className = 'sender';
+  sender.textContent = who === 'user' ? 'شما' : 'دانش چی پی تی · پاسخ نمایشی';
+  const content = document.createElement('div');
+  content.textContent = text;
+  bubble.append(sender, content);
+  messages.appendChild(bubble);
+  bubble.scrollIntoView({block: 'nearest', behavior: 'smooth'});
+}
+function updateSubtitle() { subtitle.textContent = 'پایهٔ ' + grade + ' · درس ' + subject; }
+document.querySelectorAll('.subject').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.subject').forEach(item => item.classList.remove('active'));
+  button.classList.add('active'); subject = button.dataset.sub;
+  input.placeholder = 'سؤال ' + (subject === 'عمومی' ? 'درسی' : subject) + ' را بنویس…'; updateSubtitle(); input.focus();
+}));
+document.querySelectorAll('[data-grade]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-grade]').forEach(item => item.classList.remove('active'));
+  button.classList.add('active'); grade = button.dataset.grade; updateSubtitle();
+}));
+document.querySelectorAll('[data-q]').forEach(button => button.addEventListener('click', () => { input.value = button.dataset.q; input.focus(); }));
+document.getElementById('form').addEventListener('submit', event => {
+  event.preventDefault(); const question = input.value.trim(); if (!question) return;
+  addMessage('پایهٔ ' + grade + ' · درس ' + subject + '\n' + question, 'user'); input.value = '';
+  let answer = 'این سایت فعلاً نسخهٔ نمایشی است و هنوز به هوش مصنوعی واقعی متصل نشده. در نسخهٔ کامل می‌توانیم آن را به مدلی وصل کنیم که سؤال تو را تحلیل کند و پاسخ مرحله‌به‌مرحله بدهد.\n\nبرای پاسخ دقیق‌تر، نام کتاب یا عنوان فصل را هم بنویس.';
+  if (/۲x|2x|معادله/.test(question)) answer = 'نمونهٔ حل معادلهٔ ۲x + ۳ = ۱۱:\n۱) از هر دو طرف ۳ کم می‌کنیم: ۲x = ۸\n۲) دو طرف را بر ۲ تقسیم می‌کنیم: x = ۴\n۳) بررسی: ۲ × ۴ + ۳ = ۱۱؛ پس جواب درست است.\n\nاین یک پاسخ نمونهٔ از پیش آماده است، نه پاسخ تولیدشده توسط هوش مصنوعی.';
+  else if (/فصل|زمین|خورشید/.test(question)) answer = 'فصل‌ها به دلیل کج بودن محور زمین و گردش زمین به دور خورشید به وجود می‌آیند. وقتی یک نیم‌کره بیشتر رو به خورشید باشد، نور مستقیم‌تر و روزهای بلندتری دریافت می‌کند و هوا گرم‌تر می‌شود.\n\nاین یک پاسخ نمونهٔ از پیش آماده است، نه پاسخ تولیدشده توسط هوش مصنوعی.';
+  else if (/برنامه|امتحان|مرور/.test(question)) answer = 'یک برنامهٔ کوتاه پیشنهادی:\n۱) ۲۰ دقیقه درس را بخوان.\n۲) ۵ دقیقه استراحت کن.\n۳) ۱۵ دقیقه سؤال حل کن.\n۴) نکته‌هایی را که اشتباه جواب دادی دوباره مرور کن.\n\nاین پیشنهاد عمومی و نمایشی است؛ برنامه را با زمان و درس امتحانت هماهنگ کن.';
+  window.setTimeout(() => addMessage(answer, 'bot'), 180);
+});
+document.getElementById('clear').addEventListener('click', () => {
+  messages.innerHTML = ''; addMessage('گفت‌وگوی تازه شروع شد! 😊 از کدام درس می‌خواهی شروع کنیم؟', 'bot');
+});
+</script>
+</body>
+</html>
